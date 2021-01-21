@@ -9,6 +9,5 @@ public class OrderSystem {
 		Object obj = new JSONParser().parse(new FileReader("order-input.json"));
 		JSONObject jo = (JSONObject) obj;
 		
-		
 	}
 }
