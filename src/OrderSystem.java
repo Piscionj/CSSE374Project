@@ -1,8 +1,11 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Observable;
-
 import orders.Order;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -12,23 +15,37 @@ public class OrderSystem extends Observable {
 	ArrayList<Order> orders;
 	
 	public void readOrder(String orderFilename) throws Exception{
-	    ArrayList<JSONObject> json = new ArrayList<JSONObject>();
-	    JSONObject obj;
+//	    ArrayList<JSONObject> json = new ArrayList<JSONObject>();
+//	    JSONObject obj;
+//	    
+//	    String fileName = "order-input.json";
+//
+//	    String line = null;
+//
+//	    FileReader fileReader = new FileReader(fileName);
+//	    BufferedReader bufferedReader = new BufferedReader(fileReader);
+//	    while((line = bufferedReader.readLine()) != null) {
+//	    	obj = (JSONObject) new JSONParser().parse(line);
+//	    	json.add(obj);
+//	    }
+//	    
+//	    System.out.println(json.get(0));
+//	    
+//	    bufferedReader.close();    
+		
+
+	    StringBuilder sb = new StringBuilder();
 	    
-	    String fileName = "order-input.json";
+	    
+		JSONParser parser = new JSONParser();
+		
 
-	    String line = null;
+	    Object obj = new JSONParser().parse(new FileReader(orderFilename));
+	    JSONArray array = (JSONArray)obj;
 
-	    FileReader fileReader = new FileReader(fileName);
-	    BufferedReader bufferedReader = new BufferedReader(fileReader);
-	    while((line = bufferedReader.readLine()) != null) {
-	    	obj = (JSONObject) new JSONParser().parse(line);
-	    	json.add(obj);
+	    for(Object o : array) {
+	    	//add order
 	    }
-	    
-	    bufferedReader.close();         
-	    
-
 		//adds to order ArrayList and notifies controllers
 	}
 	
