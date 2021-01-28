@@ -16,9 +16,9 @@ public class Controller implements Observer{
 		this.ordersQueued = ordersQueued;
 	}
 
-	@Override
 	public void update(Observable arg0, Object arg1) {
-		
+		//controller is notified that order an has been recieved
+		System.out.println("Controller with ID " + id + " has been notified of new order");
 	}
 	
 	public int getID() {

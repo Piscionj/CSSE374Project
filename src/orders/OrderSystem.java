@@ -9,12 +9,12 @@ public class OrderSystem extends Observable {
 	ArrayList<Controller> controllers = new ArrayList<Controller>();
 	
 	public void readOrder(String orderFilename, OrderStrategy strategy) throws Exception{
-
 		
 		Order order = JsonParser.parseOrder(orderFilename);
 
-	    
+		setChanged();
 	    notifyObservers(order);
+	    
 	    int i = -1;
 	    int x;
 	    Controller bestController = null;
@@ -27,7 +27,7 @@ public class OrderSystem extends Observable {
 	    	}
 	    }
 	    
-	    if (i > -1 ) System.out.println("sending order to controller with ID " + bestController.getID());	    
+	    if (i > -1) System.out.println("sending order to controller with ID " + bestController.getID());	    
 	    else System.out.println("no controllers connected");
 		
 	    //creates order and notifies controllers
