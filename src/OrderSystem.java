@@ -16,13 +16,12 @@ public class OrderSystem implements SystemSubject{
 	    String fileName = "order-input.json";
 
 	    String line = null;
-	    int x = 0;
 
 	    FileReader fileReader = new FileReader(fileName);
 	    BufferedReader bufferedReader = new BufferedReader(fileReader);
 	    while((line = bufferedReader.readLine()) != null) {
-	    	System.out.println(x++);
-//	    	json.add(obj);
+	    	obj = (JSONObject) new JSONParser().parse(line);
+	    	json.add(obj);
 	    }
 	    
 	    bufferedReader.close();         
