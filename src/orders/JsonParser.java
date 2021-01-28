@@ -1,6 +1,7 @@
 package orders;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -18,8 +19,6 @@ public class JsonParser {
 		
 	    StringBuilder sb = new StringBuilder();
 	    
-	    
-		JSONParser parser = new JSONParser();
 		
 	    Object obj = new JSONParser().parse(new FileReader(orderFilename));
 	    JSONObject jobj = (JSONObject)obj;
@@ -49,6 +48,40 @@ public class JsonParser {
 	    
 	    
 		return new Order(orderID, address, type, optionsList);
+	}
+
+	
+	
+	public static void createCommand(int controllerID, int machineID, long orderID, String drinkName, String requestType, ArrayList<Option> options) throws IOException {
+		JSONObject jo = new JSONObject();
+		JSONObject command = new JSONObject();
+		JSONObject optiono = new JSONObject();
+		JSONArray optionArray = new JSONArray();
+		JSONObject option;
+		
+	      for(Option o : options) {
+	    	  option = new JSONObject();
+	    	  option.put("Name", o.getName());
+	    	  option.put("qty", o.getQuantity());
+	    	  optionArray.add(option);  
+	      }
+	      
+	      command.put("options", optionArray);
+	      
+	      command.put("controllerID", controllerID);
+	      command.put("coffeeMachineID", machineID);
+	      command.put("orderID", orderID);
+	      command.put("drinkName", drinkName);
+	      command.put("requestType", requestType);
+	      
+	      jo.put("command", command);
+	      
+	      FileWriter file = new FileWriter("controllerCommand.json");
+	      file.write(jo.toJSONString());
+	      file.close();
+
+	      System.out.println("JSON file created: " + jo);
+		
 	}
 	
 	

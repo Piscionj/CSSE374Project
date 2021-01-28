@@ -8,4 +8,16 @@ public class Option {
 		this.name = name;
 		this.quantity = qty;
 	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public long getQuantity() {
+		return quantity;
+	}
+	
+	
 }
