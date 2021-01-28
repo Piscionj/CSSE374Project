@@ -1,32 +1,36 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.text.ParseException;
+package orders;
 import java.util.ArrayList;
 import java.util.Observable;
 
-import orders.Address;
-import orders.Option;
-import orders.Order;
 import orders.strategies.OrderStrategy;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.JSONArray;
-
 public class OrderSystem extends Observable {
+	
+	ArrayList<Controller> controllers = new ArrayList<Controller>();
 	
 	public void readOrder(String orderFilename, OrderStrategy strategy) throws Exception{
 
 		
-		Order order = JsonParser.parseOrder(orderFilename, strategy);
+		Order order = JsonParser.parseOrder(orderFilename);
 
 	    
 	    notifyObservers(order);
+	    int i = -1;
+	    int x;
+	    Controller bestController = null;
 	    
-		//creates order and notifies controllers
+	    for (Controller cont : controllers) {
+	    	x = strategy.makeOrder(cont, order);
+	    	if (i < x) {
+	    		i = x;
+	    		bestController = cont;
+	    	}
+	    }
+	    
+	    if (i > -1 ) System.out.println("sending order to controller with ID " + bestController.getID());	    
+	    else System.out.println("no controllers connected");
+		
+	    //creates order and notifies controllers
 	}
 	
 	public void sendCommand() {
@@ -42,6 +46,7 @@ public class OrderSystem extends Observable {
 	}
 
 	public void addController(Controller cont) {
+		controllers.add(cont);
 		addObserver(cont);
 	}
 }

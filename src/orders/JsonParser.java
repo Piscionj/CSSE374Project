@@ -1,3 +1,4 @@
+package orders;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,14 +9,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import orders.Address;
-import orders.Option;
-import orders.Order;
 import orders.strategies.OrderStrategy;
 
 public class JsonParser {
 	
-	public static Order parseOrder(String orderFilename, OrderStrategy strategy) throws FileNotFoundException, IOException, ParseException{
+	public static Order parseOrder(String orderFilename) throws FileNotFoundException, IOException, ParseException{
 
 		
 	    StringBuilder sb = new StringBuilder();
@@ -49,7 +47,8 @@ public class JsonParser {
 	    
 	    Address address = new Address(street, zip);
 	    
-		return new Order(strategy, orderID, address, type, options);
+	    
+		return new Order(orderID, address, type, optionsList);
 	}
 	
 	

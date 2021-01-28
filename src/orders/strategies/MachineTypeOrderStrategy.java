@@ -1,15 +1,20 @@
 package orders.strategies;
 
-import orders.Address;
+
+import orders.Controller;
+import orders.Order;
 
 public class MachineTypeOrderStrategy implements OrderStrategy {
 
 
-	public MachineTypeOrderStrategy() {
-	}
+
 	
-	public void makeOrder(String machineType, Address address) {
-		
+	public int makeOrder(Controller cont, Order order) {
+		if ((order.getOptions().isEmpty() && !cont.getIsAdvancedType()) ||
+			(!order.getOptions().isEmpty() && cont.getIsAdvancedType())) {
+			return 1;
+		}
+		return 0;
 	}
 
 }

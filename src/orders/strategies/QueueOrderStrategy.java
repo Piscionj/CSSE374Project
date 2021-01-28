@@ -1,15 +1,12 @@
 package orders.strategies;
 
-import orders.Address;
+import orders.Controller;
+import orders.Order;
 
 public class QueueOrderStrategy implements OrderStrategy {
 
-    public QueueOrderStrategy() {
-        
-    }
-
     @Override
-    public void makeOrder(String machineType, Address address) {
-
+    public int makeOrder(Controller cont, Order order) {
+    	return cont.getOrdersQueued();
     }
 }

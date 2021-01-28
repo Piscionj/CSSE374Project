@@ -2,23 +2,36 @@ package orders;
 
 import java.util.ArrayList;
 
-import orders.strategies.OrderStrategy;
 
 public class Order {
 
 
-	OrderStrategy orderStrategy;
-	long orderID;
-	Address address;
-	String type;
-	ArrayList<Option> options;
+	private long orderID;
+	private Address address;
+	private String type;
+	private ArrayList<Option> options;
 	
-	public Order(OrderStrategy orderStrategy, long orderID, Address address, String type, ArrayList<Option> options) {
-		this.orderStrategy = orderStrategy;
+	public Order(long orderID, Address address, String type, ArrayList<Option> options) {
 		this.orderID = orderID;
 		this.address = address;
 		this.type = type;
 		this.options = options;
+	}
+
+	public long getOrderID() {
+		return orderID;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public ArrayList<Option> getOptions() {
+		return options;
 	}
 
 }
