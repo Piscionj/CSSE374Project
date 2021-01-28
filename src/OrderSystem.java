@@ -2,11 +2,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import orders.Order;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 
-public class OrderSystem implements SystemSubject{
+public class OrderSystem implements SystemSubject {
 	ArrayList<Order> orders;
 	
 	public OrderSystem() throws Exception{
