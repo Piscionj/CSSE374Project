@@ -80,7 +80,7 @@ public class JsonParser {
 	      file.write(jo.toJSONString());
 	      file.close();
 
-	      System.out.println("JSON file created: " + jo);
+	      System.out.println("sending controllerCommand.json to controller with ID " + controllerID);
 		
 	}
 	

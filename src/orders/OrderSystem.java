@@ -30,7 +30,7 @@ public class OrderSystem extends Observable {
 	    	}
 	    }
 	    
-	    if (i > -1) System.out.println("sending order to controller with ID " + selectedCont.getID());	    
+	    if (i > -1) System.out.println("controller with ID " + selectedCont.getID() + " selected to handle order");	    
 	    else System.out.println("no controllers connected");
 	    
 	}
