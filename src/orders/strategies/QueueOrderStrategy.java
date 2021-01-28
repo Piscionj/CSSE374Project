@@ -1,5 +1,7 @@
 package orders.strategies;
 
+import orders.Address;
+
 public class QueueOrderStrategy implements OrderStrategy {
 
     public QueueOrderStrategy() {
@@ -7,7 +9,7 @@ public class QueueOrderStrategy implements OrderStrategy {
     }
 
     @Override
-    public void makeOrder() {
+    public void makeOrder(String machineType, Address address) {
 
     }
 }

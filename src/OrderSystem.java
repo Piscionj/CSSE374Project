@@ -6,47 +6,27 @@ import java.nio.file.Files;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Observable;
+
+import orders.Address;
+import orders.Option;
 import orders.Order;
+import orders.strategies.OrderStrategy;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 
 public class OrderSystem extends Observable {
-	ArrayList<Order> orders;
 	
-	public void readOrder(String orderFilename) throws Exception{
-//	    ArrayList<JSONObject> json = new ArrayList<JSONObject>();
-//	    JSONObject obj;
-//	    
-//	    String fileName = "order-input.json";
-//
-//	    String line = null;
-//
-//	    FileReader fileReader = new FileReader(fileName);
-//	    BufferedReader bufferedReader = new BufferedReader(fileReader);
-//	    while((line = bufferedReader.readLine()) != null) {
-//	    	obj = (JSONObject) new JSONParser().parse(line);
-//	    	json.add(obj);
-//	    }
-//	    
-//	    System.out.println(json.get(0));
-//	    
-//	    bufferedReader.close();    
+	public void readOrder(String orderFilename, OrderStrategy strategy) throws Exception{
+
 		
+		Order order = JsonParser.parseOrder(orderFilename, strategy);
 
-	    StringBuilder sb = new StringBuilder();
 	    
+	    notifyObservers(order);
 	    
-		JSONParser parser = new JSONParser();
-		
-
-	    Object obj = new JSONParser().parse(new FileReader(orderFilename));
-	    JSONArray array = (JSONArray)obj;
-
-	    for(Object o : array) {
-	    	//add order
-	    }
-		//adds to order ArrayList and notifies controllers
+		//creates order and notifies controllers
 	}
 	
 	public void sendCommand() {
