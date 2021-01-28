@@ -1,15 +1,19 @@
 package orders;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
+
+import org.json.simple.parser.ParseException;
 
 import orders.strategies.OrderStrategy;
 
 public class OrderSystem extends Observable {
 	
-	ArrayList<Controller> controllers = new ArrayList<Controller>();
-	Order order;
-	Controller selectedCont;
+	private ArrayList<Controller> controllers = new ArrayList<Controller>();
+	private Order order;
+	private Controller selectedCont;
+	private ControllerResponse cr;
 	
 	public void readOrder(String orderFilename, OrderStrategy strategy) throws Exception{
 		//creates order and notifies controllers of new order
@@ -35,18 +39,25 @@ public class OrderSystem extends Observable {
 	    
 	}
 	
-	public void sendCommand(int machineID, String drinkName, String requestType) throws IOException {
+	public void sendCommand(String commandFilename, int machineID, String drinkName, String requestType) throws IOException {
 		//creates json file representing command to make coffee and sends it to controller
 		
-		JsonParser.createCommand(selectedCont.getID(), machineID, order.getOrderID(), drinkName, requestType, order.getOptions());
+		JsonParser.createCommand(commandFilename, selectedCont.getID(), machineID, order.getOrderID(), drinkName, requestType, order.getOptions());
+	    System.out.println("sending " + commandFilename + " to controller with ID " + order.getOrderID());
 	}
 	
-	public void readControllerResponse() {
+	public void readControllerResponse(String responseFilename) throws FileNotFoundException, IOException, ParseException {
 		//reads json file response from controller
+		cr = JsonParser.parseControllerResponse(responseFilename);
+		if(cr.getStatus() == 0) System.out.println("order " + cr.getOrderID() + " processed successfully");
+		else System.out.println("machine error for order " + cr.getOrderID() + "\nerror code: " + cr.getErrCode() + "\nerror message: " + cr.getErrDesc());
 	}
 	
-	public void sendResult() {
+	public void sendResult(String responseFilename, int machineID) throws IOException {
 		//creates json file representing status of coffee being made and sends to app
+		JsonParser.createAppResponse(responseFilename, machineID, cr);
+		
+	      System.out.println("sending " + responseFilename + " to user with order ID " + cr.getOrderID());
 	}
 
 	public void addController(Controller cont) {

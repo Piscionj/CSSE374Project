@@ -15,9 +15,6 @@ import orders.strategies.OrderStrategy;
 public class JsonParser {
 	
 	public static Order parseOrder(String orderFilename) throws FileNotFoundException, IOException, ParseException{
-
-		
-	    StringBuilder sb = new StringBuilder();
 	    
 		
 	    Object obj = new JSONParser().parse(new FileReader(orderFilename));
@@ -52,10 +49,9 @@ public class JsonParser {
 
 	
 	
-	public static void createCommand(int controllerID, int machineID, long orderID, String drinkName, String requestType, ArrayList<Option> options) throws IOException {
+	public static void createCommand(String commandFilename, int controllerID, int machineID, long orderID, String drinkName, String requestType, ArrayList<Option> options) throws IOException {
 		JSONObject jo = new JSONObject();
 		JSONObject command = new JSONObject();
-		JSONObject optiono = new JSONObject();
 		JSONArray optionArray = new JSONArray();
 		JSONObject option;
 		
@@ -76,12 +72,57 @@ public class JsonParser {
 	      
 	      jo.put("command", command);
 	      
-	      FileWriter file = new FileWriter("controllerCommand.json");
+	      FileWriter file = new FileWriter(commandFilename);
 	      file.write(jo.toJSONString());
 	      file.close();
+	      
+	}
 
-	      System.out.println("sending controllerCommand.json to controller with ID " + controllerID);
+
+
+	public static ControllerResponse parseControllerResponse(String responseFilename) throws FileNotFoundException, IOException, ParseException {
+	    Object obj = new JSONParser().parse(new FileReader(responseFilename));
+	    JSONObject jobj = (JSONObject) obj;
+	    JSONObject response = (JSONObject) jobj.get("drinkresponse");
+	    
+	    long orderID = (long) response.get("orderID");
+	    long status = (long) response.get("status");
+	    String errordesc = "";
+	    long errorcode = 0;
+	    if (status != 0) {
+	    	errordesc = (String) response.get("errordesc");
+	    	errorcode = (long) response.get("errorcode");
+	    }
+	    
+	    
+	    
+	    return new ControllerResponse(orderID, status, errordesc, errorcode);
+	    
+	}
+
+
+
+	public static void createAppResponse(String responseFilename, int machineID, ControllerResponse cr) throws IOException {
+		JSONObject jo = new JSONObject();
+		JSONObject response = new JSONObject();
 		
+	      response.put("orderID", cr.getOrderID());
+	      response.put("coffeeMachineID", machineID);
+	      
+	      long status = cr.getStatus();
+	      response.put("status", status);
+	      
+	     if(status != 0) {
+	    	 response.put("statusMessage", "Your coffee order has been cancelled.");
+	    	 response.put("errorMessage", cr.getErrDesc());
+	     }
+	     else response.put("statusMessage", "Your coffee has been prepared with your desired options.");
+	      
+	      jo.put("userResponse", response);
+	      
+	      FileWriter file = new FileWriter(responseFilename);
+	      file.write(jo.toJSONString());
+	      file.close();
 	}
 	
 	
