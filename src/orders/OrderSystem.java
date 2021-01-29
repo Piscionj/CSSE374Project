@@ -15,7 +15,7 @@ public class OrderSystem extends Observable {
 	private Controller selectedCont;
 	private ControllerResponse cr;
 	
-	public void readOrder(String orderFilename, OrderStrategy strategy) throws Exception{
+	public int readOrder(String orderFilename, OrderStrategy strategy) throws Exception {
 		//creates order and notifies controllers of new order
 		
 		order = JsonParser.parseOrder(orderFilename);
@@ -34,9 +34,12 @@ public class OrderSystem extends Observable {
 	    	}
 	    }
 	    
-	    if (i > -1) System.out.println("controller with ID " + selectedCont.getID() + " selected to handle order");	    
+	    if (i > -1) {
+	    	System.out.println("controller with ID " + selectedCont.getID() + " selected to handle order");
+			return selectedCont.getID();
+		}
 	    else System.out.println("no controllers connected");
-	    
+		return -1;
 	}
 	
 	public void sendCommand(String commandFilename, int machineID, String drinkName, String requestType) throws IOException {

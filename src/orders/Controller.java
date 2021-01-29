@@ -19,6 +19,7 @@ public class Controller implements Observer{
 	public void update(Observable arg0, Object arg1) {
 		//controller is notified that order an has been recieved
 		System.out.println("controller with ID " + id + " has been notified of new order");
+		ordersQueued++;
 	}
 	
 	public int getID() {
