@@ -46,7 +46,7 @@ public class OrderSystem extends Observable {
 		//creates json file representing command to make coffee and sends it to controller
 		
 		JsonParser.createCommand(commandFilename, selectedCont.getID(), machineID, order.getOrderID(), drinkName, requestType, order.getOptions());
-	    System.out.println("sending " + commandFilename + " to controller with ID " + order.getOrderID());
+	    System.out.println("sending " + commandFilename + " to controller with ID " + selectedCont.getID());
 	}
 	
 	public void readControllerResponse(String responseFilename) throws FileNotFoundException, IOException, ParseException {

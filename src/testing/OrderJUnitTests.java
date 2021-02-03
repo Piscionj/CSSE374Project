@@ -1,10 +1,13 @@
-package orders;
+package testing;
 
+import orders.Address;
+import orders.Controller;
+import orders.OrderSystem;
 import orders.strategies.AddressOrderStrategy;
 import orders.strategies.MachineTypeOrderStrategy;
 import orders.strategies.QueueOrderStrategy;
-import org.testng.annotations.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 
 public class OrderJUnitTests {

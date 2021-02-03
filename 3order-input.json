@@ -1,3 +1,4 @@
+
 {
   "order": { "orderID": 1,
             "address": {
@@ -29,6 +30,18 @@
             "drink": "Pumpkin Spice",
             "condiments": [
                 {"name": "Cream", "qty": 1}
+            ]
+            }
+}
+{
+  "order": { "orderID": 4,
+            "address": {
+                  "street": "3 S. Walnut",
+                  "ZIP": 60601
+            },
+            "drink": "Large Latte",
+            "condiments": [
+                {"name": "Hazelnut", "qty": 2}
             ]
             }
 }
