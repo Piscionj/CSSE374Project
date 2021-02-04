@@ -1,1 +1,1 @@
-{"command":{"controllerID":73,"requestType":"Automated","orderID":1,"options":[{"qty":1,"Name":"Sugar"},{"qty":2,"Name":"Cream"}],"coffeeMachineID":12,"drinkName":"Americano"}}
+{"command":{"controllerID":73,"requestType":"Programmable","orderID":1,"options":[{"qty":1,"Name":"Sugar"},{"qty":2,"Name":"Cream"}],"recipe":[{"commandStep":"steam","object":"milk"},{"commandStep":"add","object":"espresso"},{"commandStep":"top","object":"whipped cream"}],"coffeeMachineID":12,"drinkName":"Americano"}}

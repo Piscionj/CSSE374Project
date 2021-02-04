@@ -42,10 +42,9 @@ public class OrderSystem extends Observable {
 		return -1;
 	}
 	
-	public void sendCommand(String commandFilename, int machineID, String drinkName, String requestType) throws IOException {
+	public void sendCommand(String commandFilename, int machineID, String drinkName, String requestType, ArrayList<String> commands, ArrayList<String> ingredients) throws IOException {
 		//creates json file representing command to make coffee and sends it to controller
-		
-		JsonParser.createCommand(commandFilename, selectedCont.getID(), machineID, order.getOrderID(), drinkName, requestType, order.getOptions());
+		JsonParser.createCommand(commandFilename, selectedCont.getID(), machineID, order.getOrderID(), drinkName, requestType, order.getOptions(), commands, ingredients);
 	    System.out.println("sending " + commandFilename + " to controller with ID " + selectedCont.getID());
 	}
 	
@@ -59,8 +58,7 @@ public class OrderSystem extends Observable {
 	public void sendResult(String responseFilename, int machineID) throws IOException {
 		//creates json file representing status of coffee being made and sends to app
 		JsonParser.createAppResponse(responseFilename, machineID, cr);
-		
-	      System.out.println("sending " + responseFilename + " to user with order ID " + cr.getOrderID());
+	    System.out.println("sending " + responseFilename + " to user with order ID " + cr.getOrderID());
 	}
 
 	public void addController(Controller cont) {

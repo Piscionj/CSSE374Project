@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import orders.Address;
 import orders.Controller;
 import orders.OrderSystem;
@@ -15,8 +17,16 @@ public class Main {
 		os.readOrder("order-input2.json", new AddressOrderStrategy());
 		//should notify and select controller with ID 73
 		
+		ArrayList<String> commands = new ArrayList<String>();
+		commands.add("steam");
+		commands.add("add");
+		commands.add("top");
+		ArrayList<String> ingredients = new ArrayList<String>();
+		ingredients.add("milk");
+		ingredients.add("espresso");
+		ingredients.add("whipped cream");
 		System.out.println("\n*CONTROLLER COMMAND TEST*");
-		os.sendCommand("controllerCommand.json", 12, "Americano", "Automated");
+		os.sendCommand("controllerCommand.json", 12, "Americano", "Programmable", commands, ingredients);
 		//should send controllerCommand.json to controller with ID 73
 		
 		System.out.println("\n*CONTROLLER RESPONSE TEST*");

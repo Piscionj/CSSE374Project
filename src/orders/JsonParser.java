@@ -49,7 +49,7 @@ public class JsonParser {
 
 	
 	
-	public static void createCommand(String commandFilename, int controllerID, int machineID, long orderID, String drinkName, String requestType, ArrayList<Option> options) throws IOException {
+	public static void createCommand(String commandFilename, int controllerID, int machineID, long orderID, String drinkName, String requestType, ArrayList<Option> options, ArrayList<String> commands, ArrayList<String> ingredients) throws IOException {
 		JSONObject jo = new JSONObject();
 		JSONObject command = new JSONObject();
 		JSONArray optionArray = new JSONArray();
@@ -69,6 +69,19 @@ public class JsonParser {
 	      command.put("orderID", orderID);
 	      command.put("drinkName", drinkName);
 	      command.put("requestType", requestType);
+	      
+	      if(requestType.equals("Programmable")) {
+	    	  JSONArray commandArray = new JSONArray();
+	    	  JSONObject commandStep;
+	    	  int commandAmount = commands.size();
+	    	  for (int i = 0; i < commandAmount; i++) {
+	    		  commandStep = new JSONObject();
+	    		  commandStep.put("commandStep", commands.get(i));
+	    		  commandStep.put("object", ingredients.get(i));
+	    		  commandArray.add(commandStep);
+	    	  }
+	    	  command.put("recipe", commandArray);
+	      }
 	      
 	      jo.put("command", command);
 	      
