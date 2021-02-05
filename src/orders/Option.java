@@ -1,7 +1,8 @@
 package orders;
-public class Option {
+public class Option implements BeverageComponent {
 	String name;
 	long quantity;
+	
 
 
 	public Option(String name, long qty) {
@@ -17,6 +18,11 @@ public class Option {
 
 	public long getQuantity() {
 		return quantity;
+	}
+
+
+	public void addOptions() {
+		
 	}
 	
 	

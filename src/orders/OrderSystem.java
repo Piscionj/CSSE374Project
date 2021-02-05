@@ -14,6 +14,8 @@ public class OrderSystem extends Observable {
 	private Order order;
 	private Controller selectedCont;
 	private ControllerResponse cr;
+	private DrinkFactory df;
+	private AbstractRecipe ar;
 	
 	public int readOrder(String orderFilename, OrderStrategy strategy) throws Exception {
 		//creates order and notifies controllers of new order
@@ -65,4 +67,5 @@ public class OrderSystem extends Observable {
 		controllers.add(cont);
 		addObserver(cont);
 	}
+	
 }
