@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class MainRecipeFactory implements DrinkFactory{
 	
-	MainRecipe mr;
+	AbstractRecipe ar;
 	
-	public MainRecipeFactory() {
-		mr = new MainRecipe();
+	public MainRecipeFactory(AbstractRecipe ar) {
+		this.ar = ar;
 	}
 
 	public BeverageDecorator makeDrink(String drinkName, String requestType, ArrayList<String> commands, ArrayList<String> ingredients) {
@@ -18,7 +18,7 @@ public class MainRecipeFactory implements DrinkFactory{
 	  	  	for (int i = commandAmount - 1; i >= 0; i--) {
 	  	  		lastBeverage = beverage;
 	  	  		beverage = new Command(commands.get(i), ingredients.get(i));
-	  	  		beverage = mr.executeStep(beverage, lastBeverage);
+	  	  		beverage = ar.executeStep(beverage, lastBeverage);
 	  	  	}
 		}
 		return beverage;

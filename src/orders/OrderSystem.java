@@ -46,7 +46,8 @@ public class OrderSystem extends Observable {
 	
 	public void sendCommand(String commandFilename, int machineID, String drinkName, String requestType, ArrayList<String> commands, ArrayList<String> ingredients) throws IOException {
 		//creates json file representing command to make coffee and sends it to controller
-		df = new MainRecipeFactory();
+		ar = new MainRecipe();
+		df = new MainRecipeFactory(ar);
 		BeverageDecorator drink = df.makeDrink(drinkName, requestType, commands, ingredients);
 		JsonParser.createCommand(commandFilename, selectedCont.getID(), machineID, order.getOrderID(), drink, drinkName, requestType, order.getOptions());
 	    System.out.println("sending " + commandFilename + " to controller with ID " + selectedCont.getID());
