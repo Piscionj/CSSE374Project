@@ -12,7 +12,6 @@ public class Drink implements BeverageDecorator{
 
 	public void addCommand(BeverageDecorator command) {
 		nextCommand = command;
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 	}
 
 	public String getName() {
