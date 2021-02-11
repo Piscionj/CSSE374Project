@@ -1,14 +1,28 @@
 package orders;
 
-import java.util.ArrayList;
 
-public class Drink implements BeverageComponent{
+public class Drink implements BeverageDecorator{
 
-	String name;
-	ArrayList<String> recipe;
+	private String name;
+	private BeverageDecorator nextCommand = null;
 	
-	public void addOptions() {
-		
+	public Drink(String name) {
+		this.name = name;
 	}
+
+	public void addCommand(BeverageDecorator command) {
+		nextCommand = command;
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public BeverageDecorator getNextCommand() {
+		return nextCommand;
+	}
+	
+	
 
 }

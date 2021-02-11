@@ -1,5 +1,5 @@
 package orders;
 
 public interface AbstractRecipe {
-	void executeStep();
+	BeverageDecorator executeStep(BeverageDecorator beverage, BeverageDecorator lastBeverage);
 }

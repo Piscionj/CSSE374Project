@@ -49,15 +49,16 @@ public class JsonParser {
 
 	
 	
-	public static void createCommand(String commandFilename, int controllerID, int machineID, long orderID, String drinkName, String requestType, ArrayList<Option> options, ArrayList<String> commands, ArrayList<String> ingredients) throws IOException {
+	public static void createCommand(String commandFilename, int controllerID, int machineID, long orderID, BeverageDecorator drink, String drinkName, String requestType, ArrayList<Option> options) throws IOException {
 		JSONObject jo = new JSONObject();
 		JSONObject command = new JSONObject();
 		JSONArray optionArray = new JSONArray();
 		JSONObject option;
+		  
 		
 	      for(Option o : options) {
 	    	  option = new JSONObject();
-	    	  option.put("Name", o.getName());
+	    	  option.put("name", o.getName());
 	    	  option.put("qty", o.getQuantity());
 	    	  optionArray.add(option);  
 	      }
@@ -73,12 +74,15 @@ public class JsonParser {
 	      if(requestType.equals("Programmable")) {
 	    	  JSONArray commandArray = new JSONArray();
 	    	  JSONObject commandStep;
-	    	  int commandAmount = commands.size();
-	    	  for (int i = 0; i < commandAmount; i++) {
+	    	  BeverageDecorator step = drink;
+	    	  BeverageDecorator nextStep = step.getNextCommand();
+	    	  while(nextStep != null) {
 	    		  commandStep = new JSONObject();
-	    		  commandStep.put("commandStep", commands.get(i));
-	    		  commandStep.put("object", ingredients.get(i));
+	    		  commandStep.put("commandStep", ((Command) step).getAction());
+	    		  commandStep.put("object", ((Command) step).getIngredient());
 	    		  commandArray.add(commandStep);
+	    		  step = nextStep;
+	    		  nextStep = step.getNextCommand();
 	    	  }
 	    	  command.put("recipe", commandArray);
 	      }

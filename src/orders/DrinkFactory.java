@@ -1,5 +1,7 @@
 package orders;
 
+import java.util.ArrayList;
+
 public interface DrinkFactory {
-	void makeDrink();
+	BeverageDecorator makeDrink(String drinkName, String requestType, ArrayList<String> commands, ArrayList<String> ingredients);
 }
