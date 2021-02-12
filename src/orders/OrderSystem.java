@@ -71,4 +71,8 @@ public class OrderSystem extends Observable {
 		addObserver(cont);
 	}
 	
+	public ControllerResponse getCr(){
+		return cr;
+	}
+	
 }

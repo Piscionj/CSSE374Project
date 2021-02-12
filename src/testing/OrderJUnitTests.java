@@ -17,8 +17,11 @@ public class OrderJUnitTests {
     public void addressStrategyTest() throws Exception {
         OrderSystem os = new OrderSystem();
         Address a = new Address("200 N Main", 47803);
+        Address a2 = new Address("201 N Main", 47803);
         Controller cont = new Controller(73, true, 3, a);
+        Controller cont2 = new Controller(75, true, 3, a2);
         os.addController(cont);
+        os.addController(cont2);
         // Check returned controller ID with expected
         assertEquals(73, os.readOrder("order-input2.json", new AddressOrderStrategy()));
     }
@@ -28,7 +31,9 @@ public class OrderJUnitTests {
         OrderSystem os = new OrderSystem();
         Address a = new Address("30 W Main", 77903);
         Controller cont = new Controller(73, true, 3, a);
+        Controller cont2 = new Controller(75, true, 2, a);
         os.addController(cont);
+        os.addController(cont2);
         // Check returned controller ID with expected
         assertEquals(73, os.readOrder("order-input2.json", new QueueOrderStrategy()));
     }
@@ -38,7 +43,9 @@ public class OrderJUnitTests {
         OrderSystem os = new OrderSystem();
         Address a = new Address("30 W Main", 77903);
         Controller cont = new Controller(73, true, 3, a);
+        Controller cont2 = new Controller(75, false, 3, a);
         os.addController(cont);
+        os.addController(cont2);
         // Check returned controller ID with expected (success)
         assertEquals(73, os.readOrder("order-input2.json", new MachineTypeOrderStrategy()));
     }
